@@ -85,4 +85,5 @@ abstract class BaseLanguage {
   String get description;
   String get price;
   String get name;
+  String get mostOrderedProducts;
 }

@@ -132,4 +132,6 @@ class LanguageEn extends BaseLanguage {
   String get price => "price";
   @override
   String get name => "name";
+  @override
+  String get mostOrderedProducts => "Most Ordered Products";
 }

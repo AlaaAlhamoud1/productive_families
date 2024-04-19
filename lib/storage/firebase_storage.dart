@@ -312,3 +312,39 @@ Future<void> deleteOrderByOrderId(String orderId) async {
     rethrow;
   }
 }
+
+Future<List<ProductModel?>> getRandomProducts() async {
+  try {
+    final querySnapshot =
+        await FirebaseFirestore.instance.collection('users').get();
+
+    List<ProductModel?> allProducts = [];
+
+    for (QueryDocumentSnapshot userSnapshot in querySnapshot.docs) {
+      if (userSnapshot.exists) {
+        final dynamic userData = userSnapshot.data();
+
+        if (userData != null && userData['store'] != null) {
+          final List<dynamic> productsData =
+              userData['store']['products'] ?? [];
+
+          // Convert productsData to a list of ProductModel
+          List<ProductModel?> products = productsData
+              .map((productData) => ProductModel.fromJson(productData))
+              .toList();
+
+          allProducts.addAll(products);
+        }
+      }
+    }
+
+    // Shuffle the list of products
+    allProducts.shuffle();
+
+    // Return the first two products (or fewer if there are fewer than two products)
+    return allProducts.length >= 2 ? allProducts.sublist(0, 2) : allProducts;
+  } catch (e) {
+    print('Error fetching random products: $e');
+    return [];
+  }
+}

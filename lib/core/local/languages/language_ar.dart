@@ -134,4 +134,6 @@ class LanguageAr extends BaseLanguage {
   String get price => "السعر";
   @override
   String get name => "الاسم";
+  @override
+  String get mostOrderedProducts => "المنتجات الأكثر طلبا";
 }

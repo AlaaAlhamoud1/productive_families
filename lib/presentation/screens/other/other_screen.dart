@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:productive_families/auth.dart';
 import 'package:productive_families/data/models/user_model.dart';
 import 'package:productive_families/main.dart';
+import 'package:productive_families/notification/screen/most_ordered.dart';
 import 'package:productive_families/presentation/screens/order/screens/orders_sreen.dart';
 import 'package:productive_families/presentation/screens/other/screens/profile/profile_screen.dart';
 import 'package:productive_families/presentation/screens/other/screens/settings/settings_screen.dart';
@@ -131,19 +132,19 @@ class OtherScreen extends StatelessWidget {
             },
             title: language.orders,
           ),
-          // const SizedBox(height: 6),
-          // OtherItemCard(
-          //   onClick: () {
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) => const NotificationScreen(),
-          //         ));
-          //     // Navigator.of(context)
-          //     //     .pushNamed(AppRouter.notifications);
-          //   },
-          //   title: language.notificaitons,
-          // ),
+          const SizedBox(height: 6),
+          OtherItemCard(
+            onClick: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MostOrderedProductsScreen(),
+                  ));
+              // Navigator.of(context)
+              //     .pushNamed(AppRouter.notifications);
+            },
+            title: language.mostOrderedProducts,
+          ),
           // const SizedBox(height: 6),
           // OtherItemCard(
           //   onClick: () {
