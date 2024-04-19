@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SuggestionButton extends StatelessWidget {
-  final String title;
+  final IconData icon;
   final void Function() onClick;
   final bool isSelected;
   const SuggestionButton(
       {Key? key,
-      required this.title,
+      required this.icon,
       required this.onClick,
       required this.isSelected})
       : super(key: key);
@@ -34,9 +34,9 @@ class SuggestionButton extends StatelessWidget {
           ),
         ),
       ),
-      child: Text(
-        title,
-        style: const TextStyle(color: Colors.white, fontSize: 12),
+      child: Icon(
+        color: Colors.white,
+        icon,
       ),
     );
   }

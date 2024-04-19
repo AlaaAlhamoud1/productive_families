@@ -36,11 +36,12 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Welcom to 👋',
+                Text('Welcom to',
                     style:
                         TextStyle(fontSize: 30, fontWeight: FontWeight.w900)),
                 Expanded(
                   child: Text('Potea',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 50,
                           color: Color(0xFF4AC382),

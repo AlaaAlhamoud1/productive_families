@@ -28,4 +28,3 @@ class AuthFail extends AuthState {
   @override
   List<Object> get props => [];
 }
-

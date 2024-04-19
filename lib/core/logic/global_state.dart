@@ -6,7 +6,8 @@ class GlobalState {
 
   GlobalState({required this.languageCode, required this.isDarkTheme});
 
-  factory GlobalState.initial({required String languageCode, required bool isDarkTheme}) =>
+  factory GlobalState.initial(
+          {required String languageCode, required bool isDarkTheme}) =>
       GlobalState(languageCode: languageCode, isDarkTheme: isDarkTheme);
 
   GlobalState copyWith({

@@ -83,7 +83,7 @@ class LanguageEn extends BaseLanguage {
       "Please Add Email To Recover Password";
   @override
   String get pleaseEseYourEmailToRegister =>
-      "Please use your e-mail address to crate a new account";
+      "Please enter your e-mail address to crate a new account";
   @override
   String get fullName => "Full Name";
   @override
@@ -116,4 +116,20 @@ class LanguageEn extends BaseLanguage {
   String get forgetPass => "Forget Password";
   @override
   String get checkYourInboxPlease => "check your inbox please";
+  @override
+  String get date => "date";
+  @override
+  String get time => "time";
+  @override
+  String get orderStatus => "Order Status";
+  @override
+  String get pending => "Pending";
+  @override
+  String get orders => "orders";
+  @override
+  String get description => "description";
+  @override
+  String get price => "price";
+  @override
+  String get name => "name";
 }

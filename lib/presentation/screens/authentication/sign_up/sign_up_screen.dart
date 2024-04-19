@@ -88,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           fontWeight: FontWeight.bold),
                     ),
                     DropdownButton<String>(
-                      value: gender[0],
+                      value: selctedItem,
                       items: gender
                           .map((item) => DropdownMenuItem<String>(
                               value: item,

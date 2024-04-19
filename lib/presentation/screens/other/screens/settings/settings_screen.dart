@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:productive_families/app_store/app_store.dart';
 import 'package:productive_families/configure_di.dart';
 import 'package:productive_families/core/logic/global_bloc.dart';
-import 'package:productive_families/core/themes/app_theme.dart';
 import 'package:productive_families/core/values/constant.dart';
 import 'package:productive_families/data/local_data/shared_pref.dart';
 import 'package:productive_families/main.dart';
@@ -130,9 +129,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       children: [
         Text(text),
         Switch(
-          activeTrackColor: AppTheme.darkPrimaryColor,
+          activeTrackColor: const Color.fromARGB(255, 32, 101, 64),
           value: true,
-          activeColor: const Color(0xffcc9c1d),
+          activeColor: const Color(0xFF4AC382),
           onChanged: (bool value) {
             debugPrint(getStringAsync(SELECTED_LANGUAGE_CODE));
           },
@@ -155,7 +154,7 @@ class InputDecorationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InputDecorator(
       decoration: InputDecoration(
-        labelStyle: const TextStyle(color: Color(0xffcc9c1d)),
+        labelStyle: const TextStyle(color: Color(0xFF4AC382)),
         contentPadding: const EdgeInsets.symmetric(horizontal: 8),
         labelText: label,
         border: OutlineInputBorder(

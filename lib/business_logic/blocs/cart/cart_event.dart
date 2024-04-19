@@ -24,3 +24,10 @@ class RemoveCart extends CartEvent {
   @override
   List<Object> get props => [index];
 }
+
+class RemoveAllProductsCart extends CartEvent {
+  const RemoveAllProductsCart();
+
+  @override
+  List<Object> get props => [];
+}

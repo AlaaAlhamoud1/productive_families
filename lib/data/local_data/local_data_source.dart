@@ -23,7 +23,8 @@ abstract class LocalDataSource {
     return jsonEncode(model);
   }
 
-  List<T> convertToListOfObjectFromLocal<T>(List<String> list, T Function(Map<String, dynamic>) fromJson) {
+  List<T> convertToListOfObjectFromLocal<T>(
+      List<String> list, T Function(Map<String, dynamic>) fromJson) {
     List<T> objectList = [];
     Map<String, dynamic> objectMap = {};
     for (String item in list) {

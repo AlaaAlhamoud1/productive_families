@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:productive_families/data/models/product_model.dart';
 import 'package:productive_families/main.dart';
+import 'package:productive_families/presentation/screens/order/screens/order_details_screen.dart';
 
 import '../../../../business_logic/blocs/cart/cart_bloc.dart';
 import '../../../widgets/input_form_button.dart';
 
 class productBottomNavigation extends StatelessWidget {
   final ProductModel product;
-  const productBottomNavigation({
+  final List<ProductModel> products = [];
+  productBottomNavigation({
     Key? key,
     required this.product,
   }) : super(key: key);
@@ -66,14 +68,17 @@ class productBottomNavigation extends StatelessWidget {
             width: 90,
             child: InputFormButton(
               onClick: () {
-                // Navigator.push(
-                //   context,
-                // MaterialPageRoute(
-                //   builder: (context) => OrderDetailsScreen(
-                //     products: products,
-                //   ),
-                // ),
-                // );
+                products.clear();
+                products.add(product);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrderDetailsScreen(
+                      isCart: false,
+                      products: products,
+                    ),
+                  ),
+                );
               },
               titleText: language.buy,
             ),

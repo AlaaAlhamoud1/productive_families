@@ -118,4 +118,20 @@ class LanguageAr extends BaseLanguage {
   String get forgetPass => "نسيت كلمة المرور";
   @override
   String get checkYourInboxPlease => "تفقد صندوق البريد لو سمحت";
+  @override
+  String get date => "التاريخ";
+  @override
+  String get time => "الوقت";
+  @override
+  String get orderStatus => "حالة الطلب";
+  @override
+  String get pending => "قيد المعالجة";
+  @override
+  String get orders => "الطلبات";
+  @override
+  String get description => "الوصف";
+  @override
+  String get price => "السعر";
+  @override
+  String get name => "الاسم";
 }

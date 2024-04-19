@@ -33,15 +33,12 @@ class _CarouselWithIndicatorWidgetState
               items: List.generate(
                 widget.adsModels.length,
                 (i) => FutureBuilder<String>(
-                    future: getImageUrl(widget.adsModels[i]!.image!),
+                    future: getImageUrl(widget.adsModels[i]!.image ?? ""),
                     builder: (context, snapshot) {
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: widget.adsModels[i]!.image == null
-                            ? Image.asset(
-                                'assets/images/broken_image.png',
-                                fit: BoxFit.contain,
-                              )
+                            ? const SizedBox()
                             : Image.network(
                                 snapshot.data ?? "",
                                 fit: BoxFit.contain,

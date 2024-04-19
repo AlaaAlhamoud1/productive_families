@@ -7,7 +7,7 @@ part 'product_event.dart';
 part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  ProductBloc() : super(ProductLoading()) {
+  ProductBloc() : super(const AllProductLoaded()) {
     on<LoadProduct>(_onLoadProduct);
     on<ToggleFavoriteProduct>(_onToggleFavoriteProduct);
   }
@@ -17,6 +17,15 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       List<ProductModel> products = [];
       int id = 0;
       emit(ProductLoaded(products: products, id: id));
+      if (event.type == 'all') {
+        emit(const AllProductLoaded());
+      } else if (event.type == 'handicrafts') {
+        emit(const HandicraftsProductLoaded());
+      } else if (event.type == 'attention') {
+        emit(const AttentionProductLoaded());
+      } else if (event.type == 'food') {
+        emit(const FoodProductLoaded());
+      }
     } catch (e) {
       debugPrint(e.toString());
       emit(ProductError());

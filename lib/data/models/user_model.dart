@@ -1,3 +1,4 @@
+import 'package:productive_families/data/local_data/shared_pref.dart';
 import 'package:productive_families/data/models/store_model.dart';
 
 class UserModel {
@@ -36,5 +37,10 @@ class UserModel {
       store = null;
     }
     gender = json['gender'];
+    setValue('ID', email);
+    setValue('NAME', name);
+    setValue('AGE', age.toString());
+    setValue('EMAIL', email);
+    setValue('GENDER', gender);
   }
 }

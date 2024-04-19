@@ -21,12 +21,7 @@ Future createUser(
     // store: StoreModel(),
   );
   final json = user.toJson();
-  await docUser.set(json).then((value) {
-    setValue('ID', email);
-    setValue('NAME', name);
-    setValue('AGE', age);
-    setValue('EMAIL', email);
-  });
+  await docUser.set(json).then((value) {});
 }
 
 Future<UserModel?> getUser() async {
@@ -155,6 +150,39 @@ Future<List<ProductModel?>> getAllProducts() async {
   }
 }
 
+Future<List<ProductModel?>> getProductsByType(String type) async {
+  try {
+    final querySnapshot =
+        await FirebaseFirestore.instance.collection('users').get();
+
+    List<ProductModel?> filteredProducts = [];
+
+    for (QueryDocumentSnapshot userSnapshot in querySnapshot.docs) {
+      if (userSnapshot.exists) {
+        final dynamic userData = userSnapshot.data();
+
+        if (userData != null && userData['store'] != null) {
+          final List<dynamic> productsData =
+              userData['store']['products'] ?? [];
+
+          // Filter products by type
+          List<ProductModel?> products = productsData
+              .map((productData) => ProductModel.fromJson(productData))
+              .where((product) => product.type == type) // Filter by type
+              .toList();
+
+          filteredProducts.addAll(products);
+        }
+      }
+    }
+
+    return filteredProducts;
+  } catch (e) {
+    print('Error fetching products by type: $e');
+    return [];
+  }
+}
+
 Future<List<StoreModel?>> getAllStores() async {
   try {
     final querySnapshot =
@@ -199,7 +227,7 @@ Future<List<AdsModel?>> getAllAds() async {
 
         if (userData != null && userData['store'] != null) {
           final List<Map<String, dynamic>> adsData = [];
-          adsData.add(userData['store']['ads']);
+          adsData.add(userData['store']['ads'] ?? {});
 
           List<AdsModel?> ads =
               adsData.map((adsData) => AdsModel.fromJson(adsData)).toList();
@@ -213,5 +241,74 @@ Future<List<AdsModel?>> getAllAds() async {
   } catch (e) {
     print('Error fetching products: $e');
     return [];
+  }
+}
+
+Future createOrder(
+    {required List<ProductModel> product, required UserModel user}) async {
+  final docUser = FirebaseFirestore.instance
+      .collection('order')
+      .doc(Timestamp.now().microsecondsSinceEpoch.toString());
+
+  final json = {
+    "user": user.toJson(),
+    "products": product.map((e) => e.toJson()).toList(),
+    "status": "pending",
+    "store": product.map((e) => e.store!.toJson()).toList(),
+    "date": DateTime.now().toString()
+  };
+
+  await docUser.set(json).then((value) {});
+}
+
+// Define a function to get orders by user ID
+Future<List<Map<String, dynamic>>> getOrdersByUserId(String userId) async {
+  List<Map<String, dynamic>> userOrders = [];
+
+  try {
+    // Query the Firestore collection 'order' for orders matching the user ID
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('order')
+        .where('user.id', isEqualTo: userId)
+        .get();
+
+    // Iterate over the documents returned by the query
+    for (var doc in querySnapshot.docs) {
+      // Extract order data from each document
+      Map<String, dynamic> orderData = {
+        'orderId': doc.id,
+        'user': doc['user'],
+        'products': doc['products'],
+        'status': doc['status'],
+        'date': doc['date']
+      };
+      // Add the order data to the list
+      userOrders.add(orderData);
+    }
+
+    // Return the list of orders matching the user ID
+    print(userOrders);
+    return userOrders;
+  } catch (e) {
+    // Handle any errors that occurred during the process
+    print('Error fetching orders: $e');
+    return []; // Return an empty list in case of error
+  }
+}
+
+Future<void> deleteOrderByOrderId(String orderId) async {
+  try {
+    // Get the document reference for the order to delete
+    final orderRef =
+        FirebaseFirestore.instance.collection('order').doc(orderId);
+
+    // Delete the document
+    await orderRef.delete();
+
+    print('Order deleted successfully');
+  } catch (e) {
+    print('Error deleting order: $e');
+    // Handle any errors that occurred during the deletion process
+    rethrow;
   }
 }

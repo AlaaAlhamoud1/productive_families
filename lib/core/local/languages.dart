@@ -77,4 +77,12 @@ abstract class BaseLanguage {
   String get orderDetails;
   String get swap;
   String get checkYourInboxPlease;
+  String get date;
+  String get time;
+  String get orderStatus;
+  String get pending;
+  String get orders;
+  String get description;
+  String get price;
+  String get name;
 }

@@ -17,4 +17,3 @@ extension ContextExtensions on BuildContext {
 void finish(BuildContext context, [Object? result]) {
   if (Navigator.canPop(context)) Navigator.pop(context, result);
 }
-

@@ -22,7 +22,8 @@ class NotificationCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Odio morbi quis commodo odio aenean sed adipiscing diam. In hac habitasse platea dictumst. Lectus arcu bibendum at varius vel. Varius sit amet mattis vulputate enim nulla."),
+                Text(
+                    "Odio morbi quis commodo odio aenean sed adipiscing diam. In hac habitasse platea dictumst. Lectus arcu bibendum at varius vel. Varius sit amet mattis vulputate enim nulla."),
               ]),
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:productive_families/business_logic/blocs/cart/cart_bloc.dart';
 import 'package:productive_families/core/themes/app_theme.dart';
 
 import '../cart/cart_screen.dart';
@@ -63,13 +65,39 @@ class _MainScreenState extends State<MainScreen> {
               curve: Curves.linear);
           _selectedItemPosition = index;
         }),
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
-          BottomNavigationBarItem(
+        items: [
+          const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+          const BottomNavigationBarItem(
               icon: Icon(Icons.favorite), label: 'category'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined), label: 'cart'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'settings')
+              icon: BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  if (state is CartLoaded) {
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        const Icon(Icons.shopping_cart_outlined),
+                        Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          alignment: const Alignment(0.3, -1.5),
+                          child: Container(
+                              decoration: const BoxDecoration(
+                                  color: Colors.red, shape: BoxShape.circle),
+                              padding: const EdgeInsets.all(3),
+                              child: Text(state.products.length.toString())),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return const Icon(Icons.shopping_cart_outlined);
+                  }
+                },
+              ),
+              label: 'cart'),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'settings')
         ],
       ),
     );

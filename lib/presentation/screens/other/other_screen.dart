@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:productive_families/auth.dart';
 import 'package:productive_families/data/models/user_model.dart';
 import 'package:productive_families/main.dart';
-import 'package:productive_families/presentation/screens/other/screens/about/about_screen.dart';
-import 'package:productive_families/presentation/screens/other/screens/notification/notification_screen.dart';
+import 'package:productive_families/presentation/screens/order/screens/orders_sreen.dart';
 import 'package:productive_families/presentation/screens/other/screens/profile/profile_screen.dart';
 import 'package:productive_families/presentation/screens/other/screens/settings/settings_screen.dart';
 import 'package:productive_families/storage/firebase_storage.dart';
@@ -52,7 +51,7 @@ class OtherScreen extends StatelessWidget {
                                   SizedBox(
                                     width: size.width / 2,
                                     child: Text(
-                                      userModel.name!,
+                                      userModel.name ?? "",
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall,
@@ -66,7 +65,7 @@ class OtherScreen extends StatelessWidget {
                                   SizedBox(
                                       width: size.width / 2,
                                       child: Text(
-                                        userModel.email!,
+                                        userModel.email ?? "",
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleSmall,
@@ -126,25 +125,37 @@ class OtherScreen extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const NotificationScreen(),
+                    builder: (context) => const OrdersTabScreen(),
                   ));
-              // Navigator.of(context)
-              //     .pushNamed(AppRouter.notifications);
+              // Navigator.of(context).pushNamed(AppRouter.settings);
             },
-            title: language.notificaitons,
+            title: language.orders,
           ),
-          const SizedBox(height: 6),
-          OtherItemCard(
-            onClick: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AboutScreen(),
-                  ));
-              // Navigator.of(context).pushNamed(AppRouter.about);
-            },
-            title: language.about,
-          ),
+          // const SizedBox(height: 6),
+          // OtherItemCard(
+          //   onClick: () {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => const NotificationScreen(),
+          //         ));
+          //     // Navigator.of(context)
+          //     //     .pushNamed(AppRouter.notifications);
+          //   },
+          //   title: language.notificaitons,
+          // ),
+          // const SizedBox(height: 6),
+          // OtherItemCard(
+          //   onClick: () {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => const AboutScreen(),
+          //         ));
+          //     // Navigator.of(context).pushNamed(AppRouter.about);
+          //   },
+          //   title: language.about,
+          // ),
           const SizedBox(height: 6),
           OtherItemCard(
             onClick: () {

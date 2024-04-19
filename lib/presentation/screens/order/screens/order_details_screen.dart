@@ -2,17 +2,24 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_loadingindicator/flutter_loadingindicator.dart';
+import 'package:productive_families/business_logic/blocs/cart/cart_bloc.dart';
+import 'package:productive_families/data/local_data/shared_pref.dart';
 import 'package:productive_families/data/models/product_model.dart';
+import 'package:productive_families/data/models/user_model.dart';
 import 'package:productive_families/main.dart';
+import 'package:productive_families/storage/firebase_storage.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../business_logic/cubit/order_place/order_place_cubit.dart';
-import '../../widgets/input_form_button.dart';
-import '../../widgets/outline_label_card.dart';
+import '../../../../business_logic/cubit/order_place/order_place_cubit.dart';
+import '../../../widgets/input_form_button.dart';
+import '../../../widgets/outline_label_card.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   final List<ProductModel> products;
-  const OrderDetailsScreen({Key? key, required this.products})
+  final bool isCart;
+
+  const OrderDetailsScreen(
+      {Key? key, required this.products, required this.isCart})
       : super(key: key);
 
   @override
@@ -25,7 +32,15 @@ class OrderDetailsScreen extends StatelessWidget {
               if (state is OrderPlaceLoading) {
                 EasyLoading.show(status: '${language.loading}...');
               } else if (state is OrderPlaceSuccess) {
-                EasyLoading.showSuccess("${language.orderPlaceSuccess}!");
+                EasyLoading.showSuccess("${language.orderPlaceSuccess}!")
+                    .then((value) {
+                  if (isCart) {
+                    BlocProvider.of<CartBloc>(context)
+                        .add(const RemoveAllProductsCart());
+                  }
+
+                  Navigator.pop(context);
+                });
               }
             },
             child: Scaffold(
@@ -185,7 +200,20 @@ class OrderDetailsScreen extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   child: Builder(builder: (context) {
                     return InputFormButton(
-                      onClick: () {
+                      onClick: () async {
+                        await createOrder(
+                            product: products,
+                            user: UserModel(
+                              age: int.tryParse(getStringAsync("AGE")),
+                              email: getStringAsync("EMAIL"),
+                              gender: getStringAsync("GENDER"),
+                              id: getStringAsync("ID"),
+                              name: getStringAsync("NAME"),
+                            )).then((value) {}
+                            //  LocalNotificationService.sendMessage({
+                            //   'title': 'New Notification',
+                            // }),
+                            );
                         var orderPlaceBloc = context.read<OrderPlaceCubit>();
                         orderPlaceBloc.placeOrder();
                       },

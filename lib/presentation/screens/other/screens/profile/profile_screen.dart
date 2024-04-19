@@ -3,8 +3,6 @@ import 'package:productive_families/data/models/user_model.dart';
 import 'package:productive_families/main.dart';
 import 'package:productive_families/storage/firebase_storage.dart';
 
-import '../../../../widgets/input_form_button.dart';
-
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -51,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const Expanded(
                             child: Text(
                               'Name:',
-                              style: TextStyle(fontSize: 30),
+                              style: TextStyle(fontSize: 20),
                             ),
                           ),
 
@@ -61,10 +59,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Expanded(
                             child: Text(
                               userModel.name ?? "",
-                              style: const TextStyle(fontSize: 40),
+                              style: const TextStyle(fontSize: 20),
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,16 +73,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const Expanded(
                             child: Text(
                               'Age:',
-                              style: TextStyle(fontSize: 30),
+                              style: TextStyle(fontSize: 20),
                             ),
                           ),
                           Expanded(
                             child: Text(
                               userModel.age.toString() ?? "",
-                              style: const TextStyle(fontSize: 40),
+                              style: const TextStyle(fontSize: 20),
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const Expanded(
                             child: Text(
                               'Email:',
-                              style: TextStyle(fontSize: 30),
+                              style: TextStyle(fontSize: 20),
                             ),
                           ),
 
@@ -99,10 +103,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Expanded(
                             child: Text(
                               userModel.email ?? "",
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(fontSize: 20),
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +118,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const Expanded(
                             child: Text(
                               'Gender:',
-                              style: TextStyle(fontSize: 30),
+                              style: TextStyle(fontSize: 20),
                             ),
                           ),
 
@@ -120,34 +128,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Expanded(
                             child: Text(
                               userModel.gender ?? "",
-                              style: const TextStyle(fontSize: 40),
+                              style: const TextStyle(fontSize: 20),
                             ),
                           ),
                         ],
                       ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     const Expanded(
-                      //       child: Text(
-                      //         'Stores:',
-                      //         style: TextStyle(
-                      //               fontSize: 30),
-                      //       ),
-                      //     ),
-
-                      //     // const SizedBox(
-                      //     //   width: 20,
-                      //     // ),
-                      //     Expanded(
-                      //       child: Text(
-                      //         1.toString() ?? "",
-                      //         style: const TextStyle(
-                      //               fontSize: 40),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                 );
@@ -159,11 +144,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: CircularProgressIndicator()); // loading
             }
           }),
-      bottomNavigationBar: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        child: InputFormButton(onClick: () {}, titleText: language.update),
-      )),
+      // bottomNavigationBar: SafeArea(
+      //     child: Padding(
+      //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      //   child: InputFormButton(onClick: () {}, titleText: language.update),
+      // )),
     );
   }
 }

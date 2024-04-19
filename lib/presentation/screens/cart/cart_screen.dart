@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:productive_families/main.dart';
-import 'package:productive_families/presentation/screens/order/order_details_screen.dart';
+import 'package:productive_families/presentation/screens/order/screens/order_details_screen.dart';
 
 import '../../../business_logic/blocs/cart/cart_bloc.dart';
 import 'components/cart_product_card.dart';
@@ -112,6 +112,7 @@ class CartScreen extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (context) => OrderDetailsScreen(
                                   products: state.products,
+                                  isCart: true,
                                 ),
                               ),
                             );
