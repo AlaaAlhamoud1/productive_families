@@ -137,14 +137,10 @@ class OrderDetailsScreen extends StatelessWidget {
                       title: language.deliveryDetails,
                       child: Container(
                         padding: const EdgeInsets.only(top: 12, bottom: 8),
-                        child: const Column(
+                        child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Latoya M. Jones"),
-                              Text("3033 Sumner Street"),
-                              Text("Gardena, CA 90247"),
-                            ]),
+                            children: [Text(getStringAsync('LOCATION'))]),
                       ),
                     ),
                     const SizedBox(
@@ -168,8 +164,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(language.totalPrice),
-                                Text(
-                                    "\$${products.fold(0.0, (previousValue, element) => element.price!.toDouble())}")
+                                Text("\$${sum(products).toString()}")
                               ],
                             ),
                             Row(
@@ -183,8 +178,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(language.total),
-                                Text(
-                                    "\$${(products.fold(0.0, (previousValue, element) => element.price!.toDouble()) + 4.99)}")
+                                Text('\$${(sum(products) + 4.99).toString()}')
                               ],
                             )
                           ],
@@ -202,18 +196,19 @@ class OrderDetailsScreen extends StatelessWidget {
                     return InputFormButton(
                       onClick: () async {
                         await createOrder(
-                            product: products,
-                            user: UserModel(
-                              age: int.tryParse(getStringAsync("AGE")),
-                              email: getStringAsync("EMAIL"),
-                              gender: getStringAsync("GENDER"),
-                              id: getStringAsync("ID"),
-                              name: getStringAsync("NAME"),
-                            )).then((value) {}
-                            //  LocalNotificationService.sendMessage({
-                            //   'title': 'New Notification',
-                            // }),
-                            );
+                                product: products,
+                                user: UserModel(
+                                    age: int.tryParse(getStringAsync("AGE")),
+                                    email: getStringAsync("EMAIL"),
+                                    gender: getStringAsync("GENDER"),
+                                    id: getStringAsync("ID"),
+                                    name: getStringAsync("NAME"),
+                                    location: getStringAsync("LOCATION")))
+                            .then((value) {}
+                                //  LocalNotificationService.sendMessage({
+                                //   'title': 'New Notification',
+                                // }),
+                                );
                         var orderPlaceBloc = context.read<OrderPlaceCubit>();
                         orderPlaceBloc.placeOrder();
                       },
@@ -224,6 +219,16 @@ class OrderDetailsScreen extends StatelessWidget {
               ),
             )));
   }
+}
+
+int sum(List<ProductModel> list) {
+  int sum = 0;
+  for (var element in list) {
+    if (element.price != null) {
+      sum += element.price!;
+    }
+  }
+  return sum;
 }
 
 Future<String> getImageUrl(String imagePath) async {

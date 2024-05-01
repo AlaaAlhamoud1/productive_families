@@ -41,73 +41,58 @@ class _SuggestionListState extends State<SuggestionList> {
           isAttention = false;
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.only(top: 16),
-        child: SizedBox(
-          height: 40,
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    SuggestionButton(
-                        icon: Icons.all_inbox,
-                        onClick: () {
-                          BlocProvider.of<ProductBloc>(context)
-                              .add(LoadProduct(type: "all"));
-                          setState(() {});
-                        },
-                        isSelected: isAll),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    SuggestionButton(
-                        icon: Icons.food_bank,
-                        onClick: () {
-                          BlocProvider.of<ProductBloc>(context)
-                              .add(LoadProduct(type: "food"));
-                          setState(() {});
-                        },
-                        isSelected: isFood),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    SuggestionButton(
-                        icon: Icons.monitor_heart_rounded,
-                        onClick: () {
-                          BlocProvider.of<ProductBloc>(context)
-                              .add(LoadProduct(type: "attention"));
-                          setState(() {});
-                        },
-                        isSelected: isAttention),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    SuggestionButton(
-                        icon: Icons.handyman_outlined,
-                        onClick: () {
-                          BlocProvider.of<ProductBloc>(context)
-                              .add(LoadProduct(type: "handicrafts"));
-                          setState(() {});
-                        },
-                        isSelected: isHandcrafts),
-                  ],
-                ),
-              )
-              //  ListView.separated(
-              //   itemCount: 4,
-              //   scrollDirection: Axis.horizontal,
-              //   itemBuilder: (context, index) => SuggestionButton(
-              //       icon: icons[index],
-              //       onClick: () {
-              //         if (index == 0) {}
-              //       },
-              //       isSelected: false),
-              //   separatorBuilder: (context, index) => const SizedBox(width: 10),
-              // ),
+      child: SizedBox(
+        height: 40,
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  SuggestionButton(
+                      image: 'assets/images/home.png',
+                      onClick: () {
+                        BlocProvider.of<ProductBloc>(context)
+                            .add(LoadProduct(type: "all"));
+                        setState(() {});
+                      },
+                      isSelected: isAll),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SuggestionButton(
+                      image: 'assets/images/food.png',
+                      onClick: () {
+                        BlocProvider.of<ProductBloc>(context)
+                            .add(LoadProduct(type: "food"));
+                        setState(() {});
+                      },
+                      isSelected: isFood),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SuggestionButton(
+                      image: 'assets/images/attention.png',
+                      onClick: () {
+                        BlocProvider.of<ProductBloc>(context)
+                            .add(LoadProduct(type: "attention"));
+                        setState(() {});
+                      },
+                      isSelected: isAttention),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SuggestionButton(
+                      image: 'assets/images/handicrafts.png',
+                      onClick: () {
+                        BlocProvider.of<ProductBloc>(context)
+                            .add(LoadProduct(type: "handicrafts"));
+                        setState(() {});
+                      },
+                      isSelected: isHandcrafts),
+                ],
               ),
-        ),
+            )),
       ),
     );
   }

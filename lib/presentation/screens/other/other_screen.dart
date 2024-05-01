@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:productive_families/auth.dart';
 import 'package:productive_families/data/models/user_model.dart';
 import 'package:productive_families/main.dart';
-import 'package:productive_families/notification/screen/most_ordered.dart';
 import 'package:productive_families/presentation/screens/order/screens/orders_sreen.dart';
 import 'package:productive_families/presentation/screens/other/screens/profile/profile_screen.dart';
 import 'package:productive_families/presentation/screens/other/screens/settings/settings_screen.dart';
@@ -98,6 +97,7 @@ class OtherScreen extends StatelessWidget {
           ),
           const SizedBox(height: 30),
           OtherItemCard(
+            image: 'assets/images/profile.png',
             onClick: () {
               Navigator.push(
                   context,
@@ -110,6 +110,7 @@ class OtherScreen extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           OtherItemCard(
+            image: 'assets/images/setting.png',
             onClick: () {
               Navigator.push(
                   context,
@@ -122,6 +123,7 @@ class OtherScreen extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           OtherItemCard(
+            image: 'assets/images/orders.png',
             onClick: () {
               Navigator.push(
                   context,
@@ -133,32 +135,22 @@ class OtherScreen extends StatelessWidget {
             title: language.orders,
           ),
           const SizedBox(height: 6),
-          OtherItemCard(
-            onClick: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MostOrderedProductsScreen(),
-                  ));
-              // Navigator.of(context)
-              //     .pushNamed(AppRouter.notifications);
-            },
-            title: language.mostOrderedProducts,
-          ),
-          // const SizedBox(height: 6),
           // OtherItemCard(
           //   onClick: () {
           //     Navigator.push(
           //         context,
           //         MaterialPageRoute(
-          //           builder: (context) => const AboutScreen(),
+          //           builder: (context) => const MostOrderedProductsScreen(),
           //         ));
-          //     // Navigator.of(context).pushNamed(AppRouter.about);
+          //     // Navigator.of(context)
+          //     //     .pushNamed(AppRouter.notifications);
           //   },
-          //   title: language.about,
+          //   title: language.mostOrderedProducts,
           // ),
+
           const SizedBox(height: 6),
           OtherItemCard(
+            image: 'assets/images/logout.png',
             onClick: () {
               Auth().signOut();
             },

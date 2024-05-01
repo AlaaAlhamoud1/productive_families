@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_loadingindicator/flutter_loadingindicator.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:productive_families/core/values/values.dart';
 import 'package:productive_families/data/local_data/shared_pref.dart';
 import 'package:productive_families/main.dart';
 import 'package:productive_families/presentation/screens/order/model/order.dart';
@@ -21,8 +22,8 @@ class _OrdersTabScreenState extends State<OrdersTabScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(backgroundColor: Colors.green, title: Text(language.orders)),
+      appBar: AppBar(
+          backgroundColor: AppColors.appColor, title: Text(language.orders)),
       body: RefreshIndicator(
         onRefresh: () async {
           getOrdersByUserId(getStringAsync("ID"));
@@ -187,10 +188,10 @@ class _OrdersTabScreenState extends State<OrdersTabScreen> {
                                   const SizedBox(
                                     height: 80,
                                   ),
-                                  const Text(
+                                  Text(
                                     "dont Have Any Orders",
                                     style: TextStyle(
-                                      color: Color(0xFF4AC382),
+                                      color: AppColors.appColor,
                                       fontSize: 20,
                                     ),
                                   )
@@ -219,12 +220,12 @@ void showCancelDialog(BuildContext context, int reservationId) {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        content: const Text(
+        content: Text(
           'areYouSureYouWantToCancelThisReservation',
           style: TextStyle(
             fontFamily: "Montserrat-M",
             fontSize: 18,
-            color: Color(0xFF4AC382),
+            color: AppColors.appColor,
           ),
         ),
         actions: [
@@ -232,12 +233,12 @@ void showCancelDialog(BuildContext context, int reservationId) {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text(
+            child: Text(
               "cancel",
               style: TextStyle(
                 fontFamily: "Montserrat-M",
                 fontSize: 18,
-                color: Color(0xFF4AC382),
+                color: AppColors.appColor,
               ),
             ),
           ),
@@ -247,12 +248,12 @@ void showCancelDialog(BuildContext context, int reservationId) {
               //     DoCancelReservationEvent(reservationId: reservationId));
               Navigator.pop(context);
             },
-            child: const Text(
+            child: Text(
               'ok',
               style: TextStyle(
                 fontFamily: "Montserrat-M",
                 fontSize: 18,
-                color: Color(0xFF4AC382),
+                color: AppColors.appColor,
               ),
             ),
           ),

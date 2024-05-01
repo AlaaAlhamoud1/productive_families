@@ -39,7 +39,7 @@ class productBottomNavigation extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    '\$${product.price!.toStringAsFixed(2)}',
+                    '\$${product.price != null ? product.price!.toStringAsFixed(2) : ''}',
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,

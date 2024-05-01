@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:productive_families/business_logic/blocs/cart/cart_bloc.dart';
 import 'package:productive_families/core/themes/app_theme.dart';
+import 'package:productive_families/core/values/values.dart';
 
 import '../cart/cart_screen.dart';
 import '../favorite/favorite_product_screen.dart';
@@ -47,12 +48,13 @@ class _MainScreenState extends State<MainScreen> {
             ),
           )),
       bottomNavigationBar: SnakeNavigationBar.color(
+        height: 50,
         behaviour: SnakeBarBehaviour.floating,
         snakeShape: SnakeShape.circle,
         elevation: 5,
-        shadowColor: Colors.green,
+        shadowColor: AppColors.appColor,
         padding: const EdgeInsets.all(6),
-        backgroundColor: const Color(0xFF4AC382),
+        backgroundColor: AppColors.appColor,
         snakeViewColor: Colors.black,
         selectedItemColor: AppTheme.darkTextColor,
         unselectedItemColor: Colors.white,

@@ -1,4 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_loadingindicator/flutter_loadingindicator.dart';
+import 'package:productive_families/core/utils/common.dart';
 
 class Auth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -9,8 +12,22 @@ class Auth {
     required String email,
     required String password,
   }) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
+    await _firebaseAuth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .catchError(
+      (error, stackTrace) {
+        if (error.toString().toLowerCase().contains("credential")) {
+          toast("check your email or password");
+        } else if (error
+            .toString()
+            .contains("We have blocked all requests from")) {
+          toast(
+              "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later",
+              bgColor: Colors.red.withOpacity(0.8));
+        }
+        EasyLoading.dismiss();
+      },
+    );
   }
 
   Future<void> createUserWithEmailAndPassword({

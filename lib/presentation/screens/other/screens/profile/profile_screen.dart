@@ -43,6 +43,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           backgroundColor: Colors.transparent,
                         ),
                       ),
+                      const SizedBox(
+                        height: 100,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

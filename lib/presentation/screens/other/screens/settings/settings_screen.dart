@@ -5,6 +5,7 @@ import 'package:productive_families/app_store/app_store.dart';
 import 'package:productive_families/configure_di.dart';
 import 'package:productive_families/core/logic/global_bloc.dart';
 import 'package:productive_families/core/values/constant.dart';
+import 'package:productive_families/core/values/values.dart';
 import 'package:productive_families/data/local_data/shared_pref.dart';
 import 'package:productive_families/main.dart';
 
@@ -14,6 +15,8 @@ class SettingsScreen extends StatefulWidget {
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
+
+bool value1 = false;
 
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
@@ -44,7 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(child: Text(language.deliveryAddress)),
-                      const Text("3033 Sumner Street"),
+                      Text(getStringAsync('LOCATION')),
                     ],
                   ),
                   const SizedBox(
@@ -111,9 +114,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               InputDecorationWidget(
                 label: language.notificaitons,
                 children: [
-                  customSwitchWidget(language.order),
-                  customSwitchWidget(language.promotion),
-                  customSwitchWidget(language.newArrival)
+                  customSwitchWidget(language.order, false),
+                  customSwitchWidget(language.promotion, false),
+                  customSwitchWidget(language.newArrival, false)
                 ],
               ),
             ],
@@ -123,18 +126,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget customSwitchWidget(String text) {
+  Widget customSwitchWidget(String text, bool val) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(text),
         Switch(
           activeTrackColor: const Color.fromARGB(255, 32, 101, 64),
-          value: true,
-          activeColor: const Color(0xFF4AC382),
-          onChanged: (bool value) {
-            debugPrint(getStringAsync(SELECTED_LANGUAGE_CODE));
-          },
+          value: val,
+          activeColor: AppColors.appColor,
+          onChanged: (bool value) {},
         )
       ],
     );
@@ -154,7 +155,7 @@ class InputDecorationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InputDecorator(
       decoration: InputDecoration(
-        labelStyle: const TextStyle(color: Color(0xFF4AC382)),
+        labelStyle: TextStyle(color: AppColors.appColor),
         contentPadding: const EdgeInsets.symmetric(horizontal: 8),
         labelText: label,
         border: OutlineInputBorder(

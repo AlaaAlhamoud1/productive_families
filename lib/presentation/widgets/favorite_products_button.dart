@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:productive_families/core/values/values.dart';
 import 'package:productive_families/data/models/product_model.dart';
 
 import '../../business_logic/blocs/wishlist/wishlist_bloc.dart';
@@ -31,7 +32,7 @@ class FavoriteProductButton extends StatelessWidget {
                 state.wishlist.any((element) => element == product)
                     ? Icons.favorite
                     : Icons.favorite_border,
-                color: Theme.of(context).primaryColor);
+                color: AppColors.secondColor);
           } else {
             return const SizedBox();
           }

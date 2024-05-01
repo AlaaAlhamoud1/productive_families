@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_loadingindicator/flutter_loadingindicator.dart';
 import 'package:productive_families/auth.dart';
+import 'package:productive_families/core/utils/common.dart';
+import 'package:productive_families/core/utils/pattern.dart';
+import 'package:productive_families/core/values/values.dart';
 import 'package:productive_families/presentation/widgets/input_form_button.dart';
 import 'package:productive_families/presentation/widgets/input_text_button.dart';
 import 'package:productive_families/presentation/widgets/input_text_form_field.dart';
@@ -22,6 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +45,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 150,
                   child: Image.asset("assets/images/new_logo.png"),
                 ),
+                const SizedBox(
+                  height: 36,
+                ),
                 const Text(
-                  'Please Use Your Email To Register',
+                  'Please enter your email to register',
                   style: TextStyle(fontSize: 12, color: Colors.grey),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(
-                  height: 36,
+                  height: 10,
                 ),
                 InputTextFormField(
+                  type: TextInputType.name,
                   controller: nameController,
                   hint: 'fullName',
                 ),
@@ -57,6 +65,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 20,
                 ),
                 InputTextFormField(
+                  validator: (String? value) {
+                    print(int.tryParse(value!));
+                    return int.tryParse(value) is int
+                        ? value.isEmpty
+                            ? 'enter your age please'
+                            : value.isEmpty ||
+                                    int.tryParse(value)! < 18 ||
+                                    int.tryParse(value)! > 100
+                                ? 'you must be older than 18'
+                                : null
+                        : 'please enter numerous only';
+                  },
+                  type: TextInputType.number,
                   controller: ageController,
                   hint: 'age',
                 ),
@@ -64,6 +85,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 20,
                 ),
                 InputTextFormField(
+                  type: TextInputType.emailAddress,
+                  validator: (String? value) {
+                    Patterns.emailEnhanced;
+                    final regex = RegExp(Patterns.emailEnhanced);
+                    return value!.isEmpty || !regex.hasMatch(value)
+                        ? 'enter valid email'
+                        : null;
+                  },
                   controller: emailController,
                   hint: 'Email',
                 ),
@@ -71,6 +100,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 20,
                 ),
                 InputTextFormField(
+                  type: TextInputType.visiblePassword,
                   controller: passwordController,
                   hint: 'Password',
                   isSecureField: true,
@@ -78,13 +108,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 20,
                 ),
+                InputTextFormField(
+                  type: TextInputType.name,
+                  controller: locationController,
+                  hint: 'location',
+                  isSecureField: false,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const Text(
+                    Text(
                       "gender",
                       style: TextStyle(
-                          color: Color(0xFF4AC382),
+                          color: AppColors.appColor,
                           fontWeight: FontWeight.bold),
                     ),
                     DropdownButton<String>(
@@ -107,26 +146,50 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 InputFormButton(
                   onClick: () async {
+                    if (RegExp(Patterns.emailEnhanced)
+                        .hasMatch(emailController.text)) {}
                     EasyLoading.show();
                     await Auth()
                         .createUserWithEmailAndPassword(
                             email: emailController.text,
                             password: passwordController.text)
-                        .then((value) => print('register'));
-                    await createUser(
-                            name: nameController.text,
-                            age: int.tryParse(ageController.text) ?? 0,
-                            email: emailController.text,
-                            gender: selctedItem ?? "")
                         .then((value) {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const WidgetTree(),
-                        ),
-                        (route) => false,
-                      );
-                    });
+                      createUser(
+                              name: nameController.text,
+                              age: int.tryParse(ageController.text) ?? 0,
+                              email: emailController.text,
+                              gender: selctedItem ?? "",
+                              location: locationController.text)
+                          .then((value) {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const WidgetTree(),
+                          ),
+                          (route) => false,
+                        );
+                      });
+                    }).catchError(
+                      (error, stackTrace) {
+                        if (error
+                            .toString()
+                            .toLowerCase()
+                            .contains("already in use")) {
+                          toast("The email address is already in use");
+                        } else if (error
+                            .toString()
+                            .toLowerCase()
+                            .contains("The email address is badly formatted")) {
+                          toast("The email address is not valid.");
+                        } else if (error.code == "auth/operation-not-allowed") {
+                          toast("Operation not allowed.");
+                        } else if (error.toString().toLowerCase().contains(
+                            "password should be at least 6 characters")) {
+                          toast("The password is too weak.");
+                        }
+                        EasyLoading.dismiss();
+                      },
+                    );
                   },
                   titleText: 'Sign Up',
                 ),

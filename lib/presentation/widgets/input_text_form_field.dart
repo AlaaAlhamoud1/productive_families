@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:productive_families/core/values/values.dart';
 
 class InputTextFormField extends StatefulWidget {
   final TextEditingController controller;
   final bool isSecureField;
   final bool autoCorrect;
   final String? hint;
+  final TextInputType type;
+  final String? Function(String?)? validator;
   const InputTextFormField({
     Key? key,
+    required this.type,
     required this.controller,
+    this.validator,
     this.isSecureField = false,
     this.autoCorrect = false,
     this.hint,
@@ -30,6 +35,7 @@ class _InputTextFormFieldState extends State<InputTextFormField> {
             offset: const Offset(0, 0)),
       ]),
       child: TextFormField(
+        keyboardType: widget.type,
         controller: widget.controller,
         obscureText: widget.isSecureField && !_passwordVisible,
         enableSuggestions: !widget.isSecureField,
@@ -40,7 +46,7 @@ class _InputTextFormFieldState extends State<InputTextFormField> {
           filled: true,
           fillColor: Colors.white,
           hintText: widget.hint,
-          hintStyle: const TextStyle(color: Color(0xFF4AC382)),
+          hintStyle: TextStyle(color: AppColors.appColor),
           suffixIcon: widget.isSecureField
               ? IconButton(
                   icon: Icon(
@@ -58,6 +64,8 @@ class _InputTextFormFieldState extends State<InputTextFormField> {
               borderRadius: BorderRadius.circular(12.0),
               borderSide: BorderSide.none),
         ),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: widget.validator,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productive_families/core/values/values.dart';
 import 'package:productive_families/data/models/product_model.dart';
 import 'package:productive_families/presentation/screens/product/products_card.dart';
 import 'package:productive_families/storage/firebase_storage.dart';
@@ -17,7 +18,7 @@ class _MostOrderedProductsScreenState extends State<MostOrderedProductsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF4AC382),
+        backgroundColor: AppColors.appColor,
         title: const Text(
           "Most Ordered Products",
         ),

@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_loadingindicator/flutter_loadingindicator.dart';
 import 'package:productive_families/auth.dart';
-import 'package:productive_families/core/utils/common.dart';
+import 'package:productive_families/core/utils/pattern.dart';
+import 'package:productive_families/core/values/values.dart';
 import 'package:productive_families/data/local_data/shared_pref.dart';
 import 'package:productive_families/main.dart';
 import 'package:productive_families/presentation/screens/authentication/forgot_password/forgot_password.dart';
@@ -29,12 +30,13 @@ class _SignInScreenState extends State<SignInScreen> {
     try {
       await Auth().signInWithEmailAndPassword(email: email, password: pass);
     } on FirebaseAuthException catch (e) {
-      if (e.message.toString().characters.length < 50) {
-        print(e.message.toString().characters.length);
-        toast(e.message);
-      } else {
-        toast('check your internet');
-      }
+      print(e);
+      // if (e.message.toString().characters.length < 50) {
+      //   print(e.message.toString().characters.length);
+      //   toast(e.message);
+      // } else {
+      //   toast('check your internet');
+      // }
     }
   }
 
@@ -43,10 +45,11 @@ class _SignInScreenState extends State<SignInScreen> {
       await Auth().createUserWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
     } on FirebaseAuthException catch (e) {
-      if (e.message.toString().characters.length < 50) {
-        print(e.message.toString().characters.length);
-        toast(e.message);
-      }
+      print(e);
+      // if (e.message.toString().characters.length < 50) {
+      //   print(e.message.toString().characters.length);
+      //   toast(e.message);
+      // }
     }
   }
 
@@ -72,12 +75,26 @@ class _SignInScreenState extends State<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   InputTextFormField(
+                    type: TextInputType.emailAddress,
+                    validator: (String? value) {
+                      Patterns.emailEnhanced;
+                      final regex = RegExp(Patterns.emailEnhanced);
+                      return value!.isEmpty || !regex.hasMatch(value)
+                          ? 'enter valid email'
+                          : null;
+                    },
                     controller: _controllerEmail,
                     hint: language.email,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: InputTextFormField(
+                      type: TextInputType.visiblePassword,
+                      validator: (String? value) {
+                        return value!.isEmpty || value.length < 6
+                            ? 'your pass must be longer than 5'
+                            : null;
+                      },
                       controller: _controllerPassword,
                       hint: language.password,
                       isSecureField: true,
@@ -96,7 +113,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       );
                     },
-                    child: Text(language.forgetPassword),
+                    child: Text(language.forgetPassword,
+                        style: TextStyle(color: AppColors.secondColor)),
                   )
                 ],
               ),
@@ -127,7 +145,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         );
                       },
-                      child: Text(language.register))
+                      child: Text(language.register,
+                          style: TextStyle(color: AppColors.secondColor)))
                 ],
               )
             ],

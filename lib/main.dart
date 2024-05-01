@@ -14,6 +14,7 @@ import 'package:productive_families/core/local/language_data_model.dart';
 import 'package:productive_families/core/local/languages.dart';
 import 'package:productive_families/core/local/languages/language_en.dart';
 import 'package:productive_families/core/logic/global_bloc.dart';
+import 'package:productive_families/core/values/values.dart';
 import 'package:productive_families/firebase_options.dart';
 import 'package:productive_families/notification/awesome_controller.dart';
 import 'package:productive_families/notification/local_notifications.dart';
@@ -173,7 +174,7 @@ void configLoading() {
     ..indicatorSize = 45.0
     ..radius = 10.0
     ..progressColor = Colors.white
-    ..backgroundColor = const Color(0xFF4AC382)
+    ..backgroundColor = AppColors.appColor
     ..indicatorColor = Colors.white
     ..textColor = Colors.white
     ..userInteractions = false

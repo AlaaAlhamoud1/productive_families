@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:productive_families/app_store/app_store.dart';
 import 'package:productive_families/core/values/constant.dart';
+import 'package:productive_families/core/values/values.dart';
 import 'package:productive_families/data/local_data/shared_pref.dart';
 import 'package:productive_families/data/models/product_model.dart';
 import 'package:productive_families/main.dart';
@@ -40,11 +41,14 @@ class CartProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        product.name!,
+                        product.name ?? "",
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
-                      const SizedBox(
-                        height: 4,
+                      Text(
+                        product.description ?? "",
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: Theme.of(context).textTheme.labelLarge,
                       ),
                     ],
                   ),
@@ -54,16 +58,22 @@ class CartProductCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon((getStringAsync(SELECTED_LANGUAGE_CODE) == '')
-                            ? (platformDispatcher.locale.languageCode == 'en')
-                                ? Icons.keyboard_double_arrow_right_outlined
-                                : Icons.keyboard_double_arrow_left_sharp
-                            : getStringAsync(SELECTED_LANGUAGE_CODE) == 'en'
-                                ? Icons.keyboard_double_arrow_right_outlined
-                                : Icons.keyboard_double_arrow_left_sharp),
+                        Icon(
+                          (getStringAsync(SELECTED_LANGUAGE_CODE) == '')
+                              ? (platformDispatcher.locale.languageCode == 'en')
+                                  ? Icons.keyboard_double_arrow_right_outlined
+                                  : Icons.keyboard_double_arrow_left_sharp
+                              : getStringAsync(SELECTED_LANGUAGE_CODE) == 'en'
+                                  ? Icons.keyboard_double_arrow_right_outlined
+                                  : Icons.keyboard_double_arrow_left_sharp,
+                          color: Colors.amber,
+                        ),
                       ],
                     ),
-                    Text(language.swap)
+                    Text(
+                      language.swap,
+                      style: TextStyle(color: AppColors.appColor),
+                    )
                   ],
                 )
               ],

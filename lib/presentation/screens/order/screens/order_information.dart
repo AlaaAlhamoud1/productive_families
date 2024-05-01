@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:productive_families/core/values/values.dart';
 import 'package:productive_families/main.dart';
 import 'package:productive_families/presentation/screens/order/model/order.dart';
 import 'package:productive_families/presentation/screens/product/products_card.dart';
@@ -19,7 +20,7 @@ class OrderInformationScreen extends StatelessWidget {
           title: Text(
             language.orderDetails,
           ),
-          backgroundColor: Colors.green),
+          backgroundColor: AppColors.appColor),
       body: Column(children: [
         Expanded(
           child: Padding(

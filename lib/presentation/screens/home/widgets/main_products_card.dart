@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:productive_families/presentation/screens/product/product_screens.dart';
@@ -37,6 +39,7 @@ class MainProductCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
+                          flex: 5,
                           child: Card(
                             color: Colors.black,
                             elevation: 5,
@@ -89,15 +92,62 @@ class MainProductCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Padding(
-                            padding: const EdgeInsets.fromLTRB(4, 4, 4, 0),
-                            child: snapshot.data != null
-                                ? Text(
-                                    product.name!,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w600),
-                                  )
-                                : shimmer(height: 10, horizontalPadding: 20)),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                              padding: const EdgeInsets.fromLTRB(4, 4, 4, 0),
+                              child: snapshot.data != null
+                                  ? Column(
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  product.name!,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                  visible: Random().nextBool(),
+                                                  child: const Icon(
+                                                    Icons
+                                                        .local_fire_department_rounded,
+                                                    color: Colors.amber,
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            maxLines: 1,
+                                            product.description!,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            product.price != null
+                                                ? product.price.toString()
+                                                : "",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : shimmer(height: 10, horizontalPadding: 20)),
+                        ),
                         // const Padding(
                         //   padding: EdgeInsets.fromLTRB(4, 15, 4, 0),
                         //   child: Row(

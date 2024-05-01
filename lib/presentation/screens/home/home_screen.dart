@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:productive_families/business_logic/blocs/product/product_bloc.dart';
-import 'package:productive_families/core/values/values.dart';
 import 'package:productive_families/data/models/product_model.dart';
-import 'package:productive_families/presentation/screens/home/widgets/carosel_with_indecator.dart';
+import 'package:productive_families/main.dart';
 import 'package:productive_families/presentation/screens/home/widgets/suggestion_list.dart';
 import 'package:productive_families/storage/firebase_storage.dart';
 
-import '../../../data/models/ads_model.dart';
-import 'widgets/home_title.dart';
 import 'widgets/product_grid.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,9 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       headerSliverBuilder: (context, value) {
         return [
-          const SliverToBoxAdapter(
-            child: HomeTitle(),
-          ),
+          // const SliverToBoxAdapter(
+          //   child: HomeTitle(),
+          // ),
           SliverOverlapAbsorber(
             handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
             sliver: SliverPersistentHeader(
@@ -37,27 +34,67 @@ class _HomeScreenState extends State<HomeScreen> {
               delegate: PersistentHeader(
                 widget: Column(
                   children: [
-                    const Expanded(flex: 2, child: SuggestionList()),
-                    Expanded(
-                      flex: 2,
-                      child: FutureBuilder<List<AdsModel?>>(
-                          future: getAllAds(),
-                          builder: (context, snapshot) {
-                            if (snapshot.data != null) {
-                              if (snapshot.data!.isNotEmpty) {
-                                return CarouselWithIndicatorWidget(
-                                  adsModels: snapshot.data ?? [],
-                                  indicatorsColor: AppColors.appColor,
-                                );
-                              } else {
-                                return const SizedBox();
-                              }
-                            } else {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            }
-                          }),
+                    const SizedBox(
+                      height: 8,
                     ),
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Container(
+                          decoration: BoxDecoration(boxShadow: [
+                            BoxShadow(
+                                blurRadius: 6,
+                                color: Colors.black.withOpacity(0.3),
+                                blurStyle: BlurStyle.normal,
+                                offset: const Offset(0, 0)),
+                          ]),
+                          child: TextField(
+                            style: const TextStyle(color: Colors.black),
+                            autofocus: false,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.only(left: 12),
+                              suffixIcon: const Icon(Icons.search),
+                              border: const OutlineInputBorder(),
+                              hintText: language.search,
+                              fillColor: Colors.white,
+                              filled: true,
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.white, width: 3.0),
+                                  borderRadius: BorderRadius.circular(12)),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                    color: Colors.white, width: 3.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Expanded(flex: 4, child: SuggestionList()),
+                    // const Expanded(flex: 2, child: SuggestionList()),
+                    // Expanded(
+                    //   flex: 2,
+                    //   child: FutureBuilder<List<AdsModel?>>(
+                    //       future: getAllAds(),
+                    //       builder: (context, snapshot) {
+                    //         if (snapshot.data != null) {
+                    //           if (snapshot.data!.isNotEmpty) {
+                    //             return CarouselWithIndicatorWidget(
+                    //               adsModels: snapshot.data ?? [],
+                    //               indicatorsColor: AppColors.appColor,
+                    //             );
+                    //           } else {
+                    //             return const SizedBox();
+                    //           }
+                    //         } else {
+                    //           return const Center(
+                    //               child: CircularProgressIndicator());
+                    //         }
+                    //       }),
+                    // ),
                   ],
                 ),
               ),

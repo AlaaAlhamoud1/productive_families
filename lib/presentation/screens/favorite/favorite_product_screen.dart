@@ -18,21 +18,24 @@ class FavoriteProductScreen extends StatelessWidget {
         } else {
           return Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+              padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Expanded(
-                      flex: 2,
-                      child: SvgPicture.asset('assets/images/favourite.svg')),
-                  const SizedBox(
-                    height: 50,
+                  const Expanded(
+                    flex: 2,
+                    child: SizedBox(),
                   ),
                   Expanded(
-                    flex: 1,
-                    child: Text(
-                      language.favoriteItemsNotAdded,
-                      style: const TextStyle(fontSize: 16),
+                      flex: 8,
+                      child: SvgPicture.asset('assets/images/favourite.svg')),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Text(
+                        language.favoriteItemsNotAdded,
+                        style: const TextStyle(fontSize: 16),
+                      ),
                     ),
                   )
                 ],

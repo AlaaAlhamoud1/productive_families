@@ -2,7 +2,8 @@ part of values;
 
 class AppColors {
   static const double primaryColorOpacity = 0.1;
-  static const Color appColor = Color(0xFF4AC382);
+  static Color appColor = const Color(0xFF2A524B);
+  static Color secondColor = const Color(0xFF984979);
 
   static const Color errorRed = Color(0xFFFF2019);
   static const Color disneyPlus = Color(0xFFB41100);

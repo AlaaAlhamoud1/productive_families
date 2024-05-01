@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:productive_families/core/values/values.dart';
 
 class OtherItemCard extends StatelessWidget {
   final String title;
   final Function()? onClick;
+  final String image;
   const OtherItemCard({
     Key? key,
     required this.title,
     this.onClick,
+    required this.image,
   }) : super(key: key);
 
   @override
@@ -30,14 +33,25 @@ class OtherItemCard extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+            child: SizedBox(
+              height: 60,
               child: Row(
                 children: [
-                  Text(
-                    title,
-                    style: const TextStyle(color: Color(0xFF4AC382)),
-                  )
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Image.asset(image),
+                  )),
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      title,
+                      style: TextStyle(color: AppColors.appColor),
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: onClick,
+                      icon: const Icon(Icons.arrow_forward_ios))
                 ],
               ),
             ),

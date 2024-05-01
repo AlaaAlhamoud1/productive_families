@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:productive_families/data/models/product_model.dart';
 import 'package:productive_families/main.dart';
 import 'package:productive_families/presentation/screens/order/screens/order_details_screen.dart';
 
@@ -92,7 +93,7 @@ class CartScreen extends StatelessWidget {
                                           const TextStyle(color: Colors.white),
                                     ),
                                     Text(
-                                      "\$ ${state.getTotal()}",
+                                      sum(state.products).toString(),
                                       style:
                                           const TextStyle(color: Colors.white),
                                     )
@@ -112,6 +113,7 @@ class CartScreen extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (context) => OrderDetailsScreen(
                                   products: state.products,
+                                  
                                   isCart: true,
                                 ),
                               ),
@@ -154,19 +156,22 @@ class CartScreen extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.all(40),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Expanded(
-                        flex: 3,
-                        child: SvgPicture.asset('assets/images/cart.svg')),
-                    const SizedBox(
-                      height: 50,
+                    const Expanded(
+                      flex: 2,
+                      child: SizedBox(),
                     ),
                     Expanded(
-                      flex: 1,
-                      child: Text(
-                        language.cartItemsNotAdded,
-                        style: const TextStyle(fontSize: 16),
+                        flex: 8,
+                        child: SvgPicture.asset('assets/images/cart.svg')),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          language.cartItemsNotAdded,
+                          style: const TextStyle(fontSize: 16),
+                        ),
                       ),
                     )
                   ],
@@ -181,5 +186,15 @@ class CartScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  int sum(List<ProductModel> list) {
+    int sum = 0;
+    for (var element in list) {
+      if (element.price != null) {
+        sum += element.price!;
+      }
+    }
+    return sum;
   }
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:productive_families/core/values/values.dart';
 
 class SuggestionButton extends StatelessWidget {
-  final IconData icon;
+  final String image;
   final void Function() onClick;
   final bool isSelected;
   const SuggestionButton(
       {Key? key,
-      required this.icon,
+      required this.image,
       required this.onClick,
       required this.isSelected})
       : super(key: key);
@@ -19,9 +20,9 @@ class SuggestionButton extends StatelessWidget {
         padding: MaterialStateProperty.all<EdgeInsets>(
             const EdgeInsets.symmetric(vertical: 16, horizontal: 30)),
         backgroundColor: MaterialStateProperty.all<Color>(isSelected
-            ? const Color.fromARGB(255, 33, 84, 40)
-            : const Color(0xFF4AC382)),
-        maximumSize: MaterialStateProperty.all<Size>(const Size(300, 50)),
+            ? AppColors.appColor
+            : AppColors.appColor.withOpacity(0.5)),
+        maximumSize: MaterialStateProperty.all<Size>(const Size(400, 100)),
         minimumSize: MaterialStateProperty.all<Size>(const Size(100, 50)),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
@@ -34,9 +35,10 @@ class SuggestionButton extends StatelessWidget {
           ),
         ),
       ),
-      child: Icon(
+      child: Image.asset(
+        image,
         color: Colors.white,
-        icon,
+        fit: BoxFit.fill,
       ),
     );
   }

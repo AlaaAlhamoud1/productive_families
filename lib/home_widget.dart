@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productive_families/core/values/values.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,25 +10,25 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(flex: 4, child: Image.asset('assets/images/new_logo.png')),
-          const Expanded(
+          Expanded(
             flex: 3,
             child: Padding(
-              padding: EdgeInsets.only(left: 30),
+              padding: const EdgeInsets.only(left: 30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Welcom to',
+                  const Text('Welcom to',
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.w900)),
                   Expanded(
                     child: Text('Potea',
                         style: TextStyle(
                             fontSize: 50,
-                            color: Color(0xFF4AC382),
+                            color: AppColors.appColor,
                             fontWeight: FontWeight.w900)),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: SizedBox(
                       width: 350,
                       child: Text(

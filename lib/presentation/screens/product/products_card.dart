@@ -2,7 +2,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:productive_families/data/models/product_model.dart';
-import 'package:productive_families/main.dart';
 
 class ProductWidget extends StatelessWidget {
   final ProductModel? product;
@@ -17,122 +16,81 @@ class ProductWidget extends StatelessWidget {
         future: getImageUrl(product!.image!),
         builder: (context, snapshot) {
           if (snapshot.data != null) {
-            return Container(
-              height: 150,
-              decoration: BoxDecoration(
-                color: const Color(0xFF4AC382),
-                border: Border.all(color: Colors.black),
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-              ),
-              child: Row(
+            return SizedBox(
+              height: 80,
+              // decoration: BoxDecoration(
+              //   border: Border.all(color: Colors.black),
+              //   borderRadius: const BorderRadius.all(Radius.circular(10)),
+              // ),
+              child: Column(
                 children: [
                   Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Image.network(
-                        snapshot.data ?? "",
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  Expanded(
-                    flex: 5,
-                    child: Column(
+                    child: Row(
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Image.network(
+                            snapshot.data ?? "",
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
                         Expanded(
-                          child: Row(
+                          flex: 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Expanded(
-                                child: Text(
-                                  '${language.name}:' ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      product!.name ?? '',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Expanded(
-                                child: Text(
-                                  product!.name ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
+                              Text(
+                                product!.description ?? '',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.black,
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Expanded(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  '${language.description}:' ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  product!.description ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  '${language.price}:' ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  product!.price.toString() ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          child: Text(
+                            product!.price != null
+                                ? product!.price.toString()
+                                : '',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
+                  const Divider(
+                    height: 2,
+                    color: Colors.black,
+                  )
                 ],
               ),
             );

@@ -20,7 +20,7 @@ class LanguageEn extends BaseLanguage {
   @override
   String get signUp => "Sign Up";
   @override
-  String get signOut => "Sign Out";
+  String get signOut => "Logout";
   @override
   String get register => "Register";
   @override

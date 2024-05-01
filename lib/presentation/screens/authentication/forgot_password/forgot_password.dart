@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:productive_families/auth.dart';
 import 'package:productive_families/core/utils/common.dart';
+import 'package:productive_families/core/utils/pattern.dart';
 import 'package:productive_families/main.dart';
 import 'package:productive_families/presentation/screens/authentication/sign_in/sign_in_screen.dart';
 
@@ -38,6 +39,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             Expanded(
               child: InputTextFormField(
+                type: TextInputType.emailAddress,
+                validator: (String? value) {
+                  Patterns.emailEnhanced;
+                  final regex = RegExp(Patterns.emailEnhanced);
+                  return value!.isEmpty || !regex.hasMatch(value)
+                      ? 'enter valid email'
+                      : null;
+                },
                 controller: emailController,
                 hint: language.email,
               ),
